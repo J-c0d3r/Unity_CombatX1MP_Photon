@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+    //[SerializeField] private float veloc;
 
-    public int idPlayer;
-
+    //private Rigidbody2D rig;
+    //private SpriteRenderer spriteR;
 
     void Start()
     {
+        //rig = GetComponent<Rigidbody2D>();
+        //spriteR = GetComponent<SpriteRenderer>();
+
+        //rig.velocity = transform.right * velocMove;
+
         Destroy(gameObject, 5f);
     }
 
@@ -26,7 +32,7 @@ public class BulletController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (collision.gameObject.CompareTag("Player") && collision.gameObject.GetComponent<PlayerController>().id != idPlayer)
+        if (collision.gameObject.CompareTag("Player"))
         {
             Destroy(collision.gameObject);
         }

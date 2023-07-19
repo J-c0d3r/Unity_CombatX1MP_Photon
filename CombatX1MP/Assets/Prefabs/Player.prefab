@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &63018177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 63018178}
+  m_Layer: 0
+  m_Name: bulletPointLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &63018178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63018177}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -1.042, y: -0.155, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6536348746608419266}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &174750697
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,7 +144,7 @@ RectTransform:
   m_Children:
   - {fileID: 174750698}
   m_Father: {fileID: 6536348746608419266}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -321,6 +352,7 @@ Transform:
   m_Children:
   - {fileID: 6536348745859021851}
   - {fileID: 2015563662445818093}
+  - {fileID: 63018178}
   - {fileID: 1556072875}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -337,8 +369,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c87be8347d5af0e4d9a02ae58d7b6cf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  veloc: 5
+  timeCountMaxReset: 3
+  qtyMaxShoot: 20
+  velocShoot: 50
+  velocMove: 10
   jumpForce: 650
+  boxCollider: {fileID: 6536348746608419267}
+  boxCollider2: {fileID: 6536348746608419269}
+  spawnPoint: {fileID: 0}
+  bulletPointRight: {fileID: 2015563662445818093}
+  bulletPointLeft: {fileID: 63018178}
+  bulletPrefab: {fileID: 8921199485630693216, guid: 36f637f8b650fac499732ed42a91c25c, type: 3}
+  canva: {fileID: 1556072878}
 --- !u!61 &6536348746608419267
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -352,7 +394,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.08649778, y: -0.22312903}
+  m_Offset: {x: 0.08649778, y: -0.09107232}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -363,7 +405,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7116728, y: 1.699985}
+  m_Size: {x: 0.7116728, y: 1.4358716}
   m_EdgeRadius: 0
 --- !u!61 &6536348746608419269
 BoxCollider2D:
@@ -378,7 +420,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.08273268, y: -1.1582565}
+  m_Offset: {x: 0.08273268, y: -1.004884}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -389,7 +431,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.747447, y: 0.07687855}
+  m_Size: {x: 0.747447, y: 0.3836236}
   m_EdgeRadius: 0
 --- !u!50 &6536348746608419268
 Rigidbody2D:
@@ -422,9 +464,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2015563662445818093}
   m_Layer: 0
-  m_Name: bulletPoint
+  m_Name: bulletPointRight
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
