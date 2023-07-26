@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private bool startedShoot;
     private bool isJumping;
     private bool isDoubleJumping;
-    private bool isAlive;
+    public bool isAlive;
 
 
     private float qtyShoot;
@@ -36,6 +36,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Canvas canva;
     [SerializeField] private Text nicknameTxt;
+
+    GameObject bulletInstatieted;
+    PhotonView bulletPV;
 
     private void Awake()
     {
@@ -62,6 +65,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.LocalPlayer.ActorNumber == 2)
             spawnPoint = GameManager.instance.positionRight;
+
+        if (!photonView.IsMine)
+            Destroy(rig);
     }
 
     private void FixedUpdate()
@@ -187,22 +193,40 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
             if (canShoot)
             {
-                GameObject obj;
+
 
                 if (!spriteR.flipX)
                 {
-                    //obj = Instantiate(bulletPrefab, bulletPointRight.position, Quaternion.identity);
-                    //obj.gameObject.GetComponent<SpriteRenderer>().flipX = false;
-                    //obj.gameObject.GetComponent<Rigidbody2D>().velocity = bulletPointRight.transform.right * velocShoot;
-                    photonView.RPC("InstantiateShoot", RpcTarget.Others, bulletPrefab.name, true, false);
+                    //bulletInstatieted = Instantiate(bulletPrefab, bulletPointRight.position, Quaternion.identity);
+                    //PhotonView bulletPV;
+                    bulletPV = PhotonNetwork.Instantiate(Path.Combine("Prefabs", bulletPrefab.name), bulletPointRight.position, Quaternion.identity).GetComponent<PhotonView>();
+                    //bulletPV.GetComponent<BulletController>().InstanceConfig(false, bulletPointRight.right);
+
+                    //bulletPV.GetComponent<SpriteRenderer>().flipX = false;
+                    //bulletPV.GetComponent<Rigidbody2D>().velocity = bulletPointRight.right * velocShoot;
+
+
+                    //bulletInstatieted.gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                    //bulletInstatieted.gameObject.GetComponent<Rigidbody2D>().velocity = bulletPointRight.transform.right * velocShoot;
+                    //photonView.RPC("InstantiateShoot", RpcTarget.All, bulletPrefab.name, true, false);
+                    //bulletPV.RPC("InstanceConfig", RpcTarget.All, true, false);
                 }
 
                 if (spriteR.flipX)
                 {
-                    //obj = Instantiate(bulletPrefab, bulletPointLeft.position, Quaternion.identity);
-                    //obj.gameObject.GetComponent<SpriteRenderer>().flipX = true;
-                    //obj.gameObject.GetComponent<Rigidbody2D>().velocity = bulletPointLeft.transform.right * velocShoot;
-                    photonView.RPC("InstantiateShoot", RpcTarget.Others, bulletPrefab.name, false, true);
+                    //bulletInstatieted = Instantiate(bulletPrefab, bulletPointLeft.position, Quaternion.identity);
+                    //PhotonView bulletPV;
+                    bulletPV = PhotonNetwork.Instantiate(Path.Combine("Prefabs", bulletPrefab.name), bulletPointLeft.position, Quaternion.identity).GetComponent<PhotonView>();
+                    bulletPV.transform.rotation = Quaternion.Euler(0, -180f, 0);
+                    //bulletPV.GetComponent<BulletController>().InstanceConfig(true, bulletPointLeft.right);
+
+                    //bulletPV.GetComponent<SpriteRenderer>().flipX = true;
+                    //bulletPV.GetComponent<Rigidbody2D>().velocity = bulletPointLeft.right * velocShoot;
+
+                    //bulletInstatieted.gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                    //bulletInstatieted.gameObject.GetComponent<Rigidbody2D>().velocity = bulletPointLeft.transform.right * velocShoot;
+                    //photonView.RPC("InstantiateShoot", RpcTarget.All, bulletPrefab.name, false, true);
+                    //bulletPV.RPC("InstanceConfig", RpcTarget.All, false, true);
                 }
 
                 qtyShoot++;
@@ -220,29 +244,29 @@ public class PlayerController : MonoBehaviourPunCallbacks
         canShoot = true;
     }
 
+
     [PunRPC]
     private void InstantiateShoot(string bulletPrefName, bool isRight, bool isFlipX)
     {
         if (isRight)
         {
-            GameObject obj = PhotonNetwork.Instantiate(Path.Combine("Prefabs", bulletPrefName), bulletPointRight.position, Quaternion.identity);
-            obj.gameObject.GetComponent<SpriteRenderer>().flipX = isFlipX;
-            obj.gameObject.GetComponent<Rigidbody2D>().velocity = bulletPointRight.transform.right * velocShoot;
+            //GameObject bulletInstatieted = PhotonNetwork.Instantiate(Path.Combine("Prefabs", bulletPrefName), bulletPointRight.position, Quaternion.identity);
+            //GameObject bulletInstatieted = Instantiate(bulletPrefab, bulletPointRight.position, Quaternion.identity);
+            //bulletInstatieted.gameObject.GetComponent<SpriteRenderer>().flipX = isFlipX;
+            //bulletInstatieted.gameObject.GetComponent<Rigidbody2D>().velocity = bulletPointRight.transform.right * velocShoot;
+            bulletPV.GetComponent<SpriteRenderer>().flipX = isFlipX;
+            bulletPV.GetComponent<Rigidbody2D>().velocity = bulletPointRight.right * velocShoot;
         }
         else
         {
-            GameObject obj = PhotonNetwork.Instantiate(Path.Combine("Prefabs", bulletPrefName), bulletPointLeft.position, Quaternion.identity);
-            obj.gameObject.GetComponent<SpriteRenderer>().flipX = isFlipX;
-            obj.gameObject.GetComponent<Rigidbody2D>().velocity = bulletPointLeft.transform.right * velocShoot;
+            //GameObject bulletInstatieted = PhotonNetwork.Instantiate(Path.Combine("Prefabs", bulletPrefName), bulletPointLeft.position, Quaternion.identity);
+            //GameObject bulletInstatieted = Instantiate(bulletPrefab, bulletPointLeft.position, Quaternion.identity);
+            //bulletInstatieted.gameObject.GetComponent<SpriteRenderer>().flipX = isFlipX;
+            //bulletInstatieted.gameObject.GetComponent<Rigidbody2D>().velocity = bulletPointLeft.transform.right * velocShoot;
+            bulletPV.GetComponent<SpriteRenderer>().flipX = isFlipX;
+            bulletPV.GetComponent<Rigidbody2D>().velocity = bulletPointLeft.right * velocShoot;
         }
     }
-    //[PunRPC]
-    //private void InstantiateShoot(Transform bulletPoint)
-    //{
-    //    GameObject obj = PhotonNetwork.Instantiate(Path.Combine("Prefabs", bulletPrefab.name), bulletPoint.position, Quaternion.identity);
-    //    //obj.gameObject.GetComponent<SpriteRenderer>().flipX = isFlipX;
-    //    //obj.gameObject.GetComponent<Rigidbody2D>().velocity = bulletPoint.transform.right * velocShoot;
-    //}
 
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -258,25 +282,57 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (collision.gameObject.CompareTag("Lava"))
         {
-            isAlive = false;
-            StartCoroutine(SpawnPlayer());
-            spriteR.enabled = false;
-            boxCollider.enabled = false;
-            boxCollider2.enabled = false;
-            canva.enabled = false;
+            Die();
         }
     }
 
-    IEnumerator SpawnPlayer()
+    public void Die()
+    {
+
+        isAlive = false;
+        //spriteR.enabled = false;
+        //boxCollider.enabled = false;
+        //boxCollider2.enabled = false;
+        //canva.enabled = false;
+        if (photonView.IsMine)
+            rig.gravityScale = 0;
+        RPC_Die();
+        photonView.RPC("RPC_Die", RpcTarget.Others);
+        StartCoroutine(ReSpawnPlayer());
+
+    }
+
+    [PunRPC]
+    private void RPC_Die()
+    {
+        spriteR.enabled = false;
+        boxCollider.enabled = false;
+        boxCollider2.enabled = false;
+        canva.enabled = false;
+    }
+
+    IEnumerator ReSpawnPlayer()
     {
         yield return new WaitForSeconds(2f);
         transform.position = spawnPoint.position;
+        RPC_Respawn();
+        if (photonView.IsMine)
+            rig.gravityScale = 2.5f;
+        photonView.RPC("RPC_Respawn", RpcTarget.Others);
+        //spriteR.enabled = true;
+        //boxCollider.enabled = true;
+        //boxCollider2.enabled = true;
+        //canva.enabled = true;
+        isAlive = true;
+    }
+
+    [PunRPC]
+    private void RPC_Respawn()
+    {
         spriteR.enabled = true;
         boxCollider.enabled = true;
         boxCollider2.enabled = true;
         canva.enabled = true;
-        isAlive = true;
     }
-
 
 }

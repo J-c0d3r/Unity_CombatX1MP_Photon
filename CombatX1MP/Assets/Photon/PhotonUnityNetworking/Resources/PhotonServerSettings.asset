@@ -44,6 +44,18 @@ MonoBehaviour:
   - Move
   - SwitchSpriteFlip
   - InstantiateShoot
+  - RPC_Die
+  - RPC_Respawn
+  - Destroy
+  - InstanceConfig
+  - RPC_UpdatePoints
+  - RPC_UpdateTime
+  - GameOver
+  - PlayAgain
+  - CanStartCountPlayAgain
+  - RPC_UpdateTimePlayAgain
+  - ExitToMenuBtn
+  - LeaveMatch
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

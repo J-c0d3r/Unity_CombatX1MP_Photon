@@ -1,4 +1,11 @@
-# Combat X1 MP
+# Combat X1 MP - Photon
+
+v0.3.0 <br>
+-Bullets are instantiated and works fine
+-Player can leave the match
+-Score system done
+-Match's time works okay
+-And everything what was necessary has been implemented
 
 v0.2.0 <br>
 -Player can create and join rooms <br>

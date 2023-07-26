@@ -19,8 +19,6 @@ public class MenuController : MonoBehaviourPunCallbacks
     [SerializeField] private Text roomsName;
 
 
-
-
     void Start()
     {
         chooseModePnl.SetActive(false);
@@ -128,5 +126,9 @@ public class MenuController : MonoBehaviourPunCallbacks
         multiplayerBtn.GetComponent<Button>().interactable = false;
     }
 
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        roomPnl.GetComponent<PhotonView>().RPC("UpdateList", RpcTarget.All);
+    }
 
 }
