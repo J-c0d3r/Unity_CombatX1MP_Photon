@@ -1,11 +1,11 @@
 # Combat X1 MP - Photon
 
 v0.3.0 <br>
--Bullets are instantiated and works fine
--Player can leave the match
--Score system done
--Match's time works okay
--And everything what was necessary has been implemented
+-Bullets are instantiated and works fine<br>
+-Player can leave the match<br>
+-Score system done<br>
+-Match's time works okay<br>
+-And everything what was necessary has been implemented<br>
 
 v0.2.0 <br>
 -Player can create and join rooms <br>
@@ -18,10 +18,10 @@ v0.1.0 <br>
 v0.0.0 <br>
 -Project created
 
-A little simple game that contains:
--Two players
--Player's moviment
--Player's animation
--Player's attack(shoot)
--Score system
--Everything interact each others
+A little simple game that contains:<br>
+-Two players<br>
+-Player's moviment<br>
+-Player's animation<br>
+-Player's attack(shoot)<br>
+-Score system<br>
+-Everything interact each others<br>
