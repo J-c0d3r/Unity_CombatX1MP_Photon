@@ -1,3 +1,5 @@
+<strong>Version:</strong> 2021.3.24f1  
+
 # Combat X1 MP - Photon
 
 v0.3.0 <br>
